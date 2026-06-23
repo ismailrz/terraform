@@ -1,0 +1,10 @@
+project_name               = "myapp"
+aws_region                 = "us-east-1"
+environment                = "prod"
+vpc_cidr                   = "10.2.0.0/16"
+single_nat_gateway         = false
+instance_type              = "t3.medium"
+asg_min_size               = 2
+asg_max_size               = 6
+asg_desired_capacity       = 2
+enable_deletion_protection = true

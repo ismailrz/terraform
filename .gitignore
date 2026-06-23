@@ -1,0 +1,33 @@
+# Terraform working directories
+.terraform/
+.terraform.tfstate.lock.info
+
+# State files — keep out of version control
+*.tfstate
+*.tfstate.backup
+*.tfstate.*.backup
+
+# Crash logs
+crash.log
+crash.*.log
+
+# Override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Sensitive variable files
+*.auto.tfvars
+secret.tfvars
+secrets.tfvars
+
+# Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

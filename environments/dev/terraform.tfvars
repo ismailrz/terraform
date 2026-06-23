@@ -1,0 +1,9 @@
+project_name         = "myapp"
+aws_region           = "us-east-1"
+environment          = "dev"
+vpc_cidr             = "10.0.0.0/16"
+single_nat_gateway   = true
+instance_type        = "t3.micro"
+asg_min_size         = 1
+asg_max_size         = 3
+asg_desired_capacity = 1
