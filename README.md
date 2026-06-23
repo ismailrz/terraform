@@ -136,6 +136,31 @@ Hooks run automatically on `git commit`: `terraform_fmt` → `terraform_validate
 | ASG min / max | 1 / 3 | 1 / 4 | 2 / 6 |
 | ALB deletion protection | off | off | **on** |
 
+## Scaling policies
+
+Two [target-tracking scaling policies](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scaling-target-tracking.html) are attached to the ASG. AWS manages the underlying CloudWatch alarms automatically.
+
+| Policy | Metric | Default target |
+|---|---|---|
+| `cpu` | Average CPU utilisation across all instances | 60% |
+| `alb_requests` | ALB request count per instance per minute | 1000 req/min |
+
+Both policies scale **out** when the metric exceeds the target and scale **in** when it drops below it. The `scaling_warmup_seconds` variable (default 300s) prevents new instances from skewing metrics while they are still booting.
+
+### Tuning thresholds
+
+Override the defaults in the relevant `terraform.tfvars`:
+
+```hcl
+scaling_cpu_target      = 50.0   # scale out earlier under CPU pressure
+scaling_requests_target = 500.0  # scale out earlier under traffic pressure
+scaling_warmup_seconds  = 180    # faster warmup for lightweight apps
+```
+
+### How AWS resolves two policies
+
+When both policies are active, AWS honours the one that results in the **larger desired capacity** — so the ASG scales out aggressively if either CPU or requests spike, but only scales in once both metrics are below their targets.
+
 ## Security notes
 
 - **No bastion host** — use [AWS SSM Session Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html) to get a shell: `aws ssm start-session --target <instance-id>`
