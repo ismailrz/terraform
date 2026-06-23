@@ -32,3 +32,13 @@ output "alb_logs_bucket" {
   description = "Name of the S3 bucket for ALB access logs"
   value       = aws_s3_bucket.alb_logs.id
 }
+
+output "scaling_policy_cpu_arn" {
+  description = "ARN of the CPU target-tracking scaling policy"
+  value       = aws_autoscaling_policy.cpu.arn
+}
+
+output "scaling_policy_alb_requests_arn" {
+  description = "ARN of the ALB request-count target-tracking scaling policy"
+  value       = aws_autoscaling_policy.alb_requests.arn
+}

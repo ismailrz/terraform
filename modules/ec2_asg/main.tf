@@ -245,3 +245,34 @@ resource "aws_autoscaling_group" "this" {
     ignore_changes        = [desired_capacity]
   }
 }
+
+# Scaling policy — target average CPU utilisation across the ASG
+resource "aws_autoscaling_policy" "cpu" {
+  name                   = "${var.name}-cpu-tracking"
+  autoscaling_group_name = aws_autoscaling_group.this.name
+  policy_type            = "TargetTrackingScaling"
+
+  target_tracking_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ASGAverageCPUUtilization"
+    }
+    target_value            = var.scaling_cpu_target
+    estimated_instance_warmup = var.scaling_warmup_seconds
+  }
+}
+
+# Scaling policy — ALB request count per target per minute
+resource "aws_autoscaling_policy" "alb_requests" {
+  name                   = "${var.name}-alb-request-tracking"
+  autoscaling_group_name = aws_autoscaling_group.this.name
+  policy_type            = "TargetTrackingScaling"
+
+  target_tracking_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ALBRequestCountPerTarget"
+      resource_label         = "${aws_lb.this.arn_suffix}/${aws_lb_target_group.this.arn_suffix}"
+    }
+    target_value            = var.scaling_requests_target
+    estimated_instance_warmup = var.scaling_warmup_seconds
+  }
+}

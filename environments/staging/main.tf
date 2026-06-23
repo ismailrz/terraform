@@ -70,6 +70,9 @@ module "ec2_asg" {
   certificate_arn            = var.certificate_arn
   enable_deletion_protection = var.enable_deletion_protection
   user_data                  = var.user_data
+  scaling_cpu_target         = var.scaling_cpu_target
+  scaling_requests_target    = var.scaling_requests_target
+  scaling_warmup_seconds     = var.scaling_warmup_seconds
 
   tags = local.common_tags
 }

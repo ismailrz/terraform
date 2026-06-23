@@ -80,3 +80,21 @@ variable "user_data" {
     echo "<h1>Hello from $(hostname -f) [${environment}]</h1>" > /var/www/html/index.html
   EOF
 }
+
+variable "scaling_cpu_target" {
+  description = "Target average CPU utilisation (%) for the CPU scaling policy"
+  type        = number
+  default     = 60.0
+}
+
+variable "scaling_requests_target" {
+  description = "Target ALB request count per instance per minute for the request scaling policy"
+  type        = number
+  default     = 1000.0
+}
+
+variable "scaling_warmup_seconds" {
+  description = "Estimated seconds for a new instance to start contributing to metrics"
+  type        = number
+  default     = 300
+}

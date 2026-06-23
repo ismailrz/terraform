@@ -92,6 +92,24 @@ variable "enable_deletion_protection" {
   default     = false
 }
 
+variable "scaling_cpu_target" {
+  description = "Target average CPU utilisation (%) across the ASG for scale-out/in"
+  type        = number
+  default     = 60.0
+}
+
+variable "scaling_requests_target" {
+  description = "Target ALB request count per instance per minute for scale-out/in"
+  type        = number
+  default     = 1000.0
+}
+
+variable "scaling_warmup_seconds" {
+  description = "Estimated time in seconds for a new instance to contribute to metrics after launch"
+  type        = number
+  default     = 300
+}
+
 variable "tags" {
   description = "Tags to apply to all resources"
   type        = map(string)
