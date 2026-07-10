@@ -83,7 +83,7 @@ variable "user_data" {
     dnf install -y httpd
     systemctl start httpd
     systemctl enable httpd
-    echo "<h1>Hello from $(hostname -f) [${environment}]</h1>" > /var/www/html/index.html
+    echo "<h1>Hello from $(hostname -f) [$${environment}]</h1>" > /var/www/html/index.html
   EOF
 }
 

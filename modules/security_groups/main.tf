@@ -45,7 +45,7 @@ resource "aws_security_group" "alb" {
 
 resource "aws_security_group" "ec2" {
   name        = "${var.name}-ec2-sg"
-  description = "Security group for EC2 instances — inbound only from ALB"
+  description = "Security group for EC2 instances - inbound only from ALB"
   vpc_id      = var.vpc_id
 
   ingress {

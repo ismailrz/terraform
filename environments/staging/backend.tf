@@ -1,7 +1,8 @@
 terraform {
   backend "s3" {
-    bucket         = "REPLACE_WITH_YOUR_STATE_BUCKET"
+    bucket         = "my-company-terraform-state-abc123"
     key            = "staging/terraform.tfstate"
+    profile        = "ismail-devops-original-id"
     region         = "us-east-1"
     dynamodb_table = "terraform-state-locks"
     encrypt        = true

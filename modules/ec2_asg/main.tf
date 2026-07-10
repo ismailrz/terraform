@@ -257,7 +257,6 @@ resource "aws_autoscaling_policy" "cpu" {
       predefined_metric_type = "ASGAverageCPUUtilization"
     }
     target_value            = var.scaling_cpu_target
-    estimated_instance_warmup = var.scaling_warmup_seconds
   }
 }
 
@@ -273,6 +272,5 @@ resource "aws_autoscaling_policy" "alb_requests" {
       resource_label         = "${aws_lb.this.arn_suffix}/${aws_lb_target_group.this.arn_suffix}"
     }
     target_value            = var.scaling_requests_target
-    estimated_instance_warmup = var.scaling_warmup_seconds
   }
 }
